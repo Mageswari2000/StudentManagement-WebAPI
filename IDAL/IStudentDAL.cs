@@ -1,0 +1,9 @@
+﻿using StudentManagement.Models;
+
+namespace StudentManagement.IDAL
+{
+    public interface IStudentDAL
+    {
+        public string SaveStudents(StudentBO Detail);
+    }
+}
