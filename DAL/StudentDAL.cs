@@ -4,6 +4,7 @@ using StudentManagement.IDAL;
 using StudentManagement.Models;
 
 namespace StudentManagement.DAL
+
 {
     public class StudentDAL : IStudentDAL
     {
@@ -15,10 +16,10 @@ namespace StudentManagement.DAL
 
         public string SaveStudents(StudentBO Detail)
         {
-            Student obj;
+            Students obj;
             if (Detail.Id==0)
             {
-                obj = new Student();
+                obj = new Students();
                 db.Students.Add(obj);
                    
             }
@@ -31,10 +32,11 @@ namespace StudentManagement.DAL
 
             obj.Id = Detail.Id;
             obj.Name = Detail.Name;
-            obj.FirstName = Detail.FirstName;
-            obj.LastName = Detail.LastName;
             obj.Email = Detail.Email;
-
+            obj.Age = Detail.Age;
+            obj.DepartmentID = Detail.DepartmentID;
+            obj.Phone = Detail.Phone;
+            db.SaveChangesAsync();
             return "Saved";
 
         }

@@ -11,8 +11,20 @@ namespace StudentManagement.Data
         }
 
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Department> Department { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Students>(entity =>
+            {
+                entity.HasOne(d => d.Department)
+                .WithMany(e => e.Student)
+                .HasForeignKey(d => d.DepartmentID)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Student_DepartmentID");
+            });
+        }
 
 
     }

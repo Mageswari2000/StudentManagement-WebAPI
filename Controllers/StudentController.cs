@@ -8,17 +8,21 @@ namespace StudentManagement.Controllers
     [Route("API/api/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : Controller
+    public class StudentController : ControllerBase
     {
         IStudentDAL obj;
 
+        public StudentController(IStudentDAL obj)
+        {
+            this.obj = obj;
+        }
 
         [HttpPost("savehere")]
         public ActionResult SaveStudents(StudentBO Detail)
         {
             try{
-                obj.SaveStudents(Detail);
-                return Ok(200);
+                var data = obj.SaveStudents(Detail);
+                return Ok(data);
             }
             catch(  Exception e) 
             {

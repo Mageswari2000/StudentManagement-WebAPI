@@ -1,19 +1,24 @@
 using Microsoft.EntityFrameworkCore;
+using StudentManagement.DAL;
 using StudentManagement.Data;
+using StudentManagement.IDAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IStudentDAL, StudentDAL>();
+builder.Services.AddScoped<IDepartmentDAL, DepartmentDAL>();
+
+
 
 var app = builder.Build();
-
-// Register Db
-
+app.UseRouting();
 
 
 // Configure the HTTP request pipeline.
@@ -26,9 +31,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
