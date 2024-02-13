@@ -24,7 +24,7 @@ namespace StudentManagement.Controllers
                 var data = obj.SaveStudents(Detail);
                 return Ok(data);
             }
-            catch(  Exception e) 
+            catch(Exception e) 
             {
                 if (e.Message.Contains("inner exception") && e.InnerException != null)
                 {
@@ -36,6 +36,31 @@ namespace StudentManagement.Controllers
                 }
             }
            
+
+        }
+
+
+
+        [HttpGet("getStudent")]
+        public ActionResult GetStudents()
+        {
+            try
+            {
+                var data = obj.GetStudents();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("inner exception") && e.InnerException != null)
+                {
+                    return BadRequest(e.InnerException.Message);
+                }
+                else
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+
 
         }
 

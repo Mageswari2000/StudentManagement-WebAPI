@@ -5,5 +5,7 @@ namespace StudentManagement.IDAL
     public interface IStudentDAL
     {
         public string SaveStudents(StudentBO Detail);
+
+        public ReturnStudentBO GetStudents();
     }
 }
