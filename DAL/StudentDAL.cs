@@ -36,6 +36,7 @@ namespace StudentManagement.DAL
                 obj.Age = Detail.Age;
                 obj.DepartmentID = Detail.DepartmentID;
                 obj.Phone = Detail.Phone;
+                obj.DateOfBirth = DateTime.UtcNow;
 
                 db.SaveChanges();
                 return "saved";
@@ -66,6 +67,23 @@ namespace StudentManagement.DAL
             return obj;
         }
 
-        
+
+        public string DeleteStudents(int StudentId)
+        {
+            var obj = db.Students.FirstOrDefault(e => e.Id == StudentId);
+
+            if (obj != null)
+            {
+                db.Students.Remove(obj);
+                db.SaveChanges();
+                return "Student Deleted Successfully";
+            }
+            else
+            {
+                return "Student doest not here";
+            }
+
+        }
+
     }
 }

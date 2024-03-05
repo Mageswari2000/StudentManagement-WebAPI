@@ -33,7 +33,7 @@ namespace StudentManagement.DAL
             obj.ID = Detail.ID;
             obj.DepartmentName = Detail.DepartmentName;
             obj.Fees = Detail.Fees;
-            db.SaveChangesAsync();
+            db.SaveChanges();
 
             return 200;
 
@@ -46,7 +46,7 @@ namespace StudentManagement.DAL
             if (obj != null)
             {
                 db.Department.Remove(obj);
-                db.SaveChangesAsync();
+                db.SaveChanges();
                 return "Department Deleted Successfully";
             }
             else

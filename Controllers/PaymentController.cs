@@ -8,46 +8,22 @@ namespace StudentManagement.Controllers
     [Route("API/api/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class PaymentController : ControllerBase
     {
-        IStudentDAL obj;
 
-        public StudentController(IStudentDAL obj)
+        IPaymentDAL obj;
+        public PaymentController(IPaymentDAL obj)
         {
             this.obj = obj;
         }
 
         [HttpPost("savehere")]
-        public ActionResult SaveStudents(StudentBO Detail)
-        {
-            try{
-                var data = obj.SaveStudents(Detail);
-                return Ok(data);
-            }
-            catch(Exception e) 
-            {
-                if (e.Message.Contains("inner exception") && e.InnerException != null)
-                {
-                    return BadRequest(e.InnerException.Message);
-                }
-                else
-                {
-                    return BadRequest(e.Message);
-                }
-            }
-           
-
-        }
-
-
-
-        [HttpGet("getStudent")]
-        public ActionResult GetStudents()
+        public ActionResult AddPayment(PaymentBO Detail)
         {
             try
             {
-                var data = obj.GetStudents();
-                return Ok(data);
+              var returndata=  obj.AddPayment(Detail);
+                return Ok(returndata);
             }
             catch (Exception e)
             {
@@ -65,11 +41,11 @@ namespace StudentManagement.Controllers
         }
 
         [HttpDelete("deletehere")]
-        public ActionResult DeleteStudents(int StudentId)
+        public ActionResult DeletePayment(PaymentBO Detail)
         {
             try
             {
-                obj.DeleteStudents(StudentId);
+                obj.DeletePayment(Detail);
                 return Ok();
             }
             catch (Exception e)
@@ -88,5 +64,29 @@ namespace StudentManagement.Controllers
         }
 
 
+
+
+        [HttpGet("getPayment")]
+        public async Task<IActionResult> Getpayment(int StudentId)
+        {
+            try
+            {
+                var data = obj.Getpayment(StudentId);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("inner exception") && e.InnerException != null)
+                {
+                    return BadRequest(e.InnerException.Message);
+                }
+                else
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+
+
+        }
     }
 }

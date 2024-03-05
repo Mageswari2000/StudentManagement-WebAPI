@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentManagement.Data;
@@ -11,9 +12,11 @@ using StudentManagement.Data;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240225134918_Student_Subject")]
+    partial class StudentSubject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +102,6 @@ namespace StudentManagement.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
@@ -109,8 +109,6 @@ namespace StudentManagement.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("StudentId");
 
@@ -170,9 +168,6 @@ namespace StudentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("SemesterType")
-                        .HasColumnType("integer");
-
                     b.Property<string>("SubjectName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -207,13 +202,6 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Data.Student_Subject", b =>
                 {
-                    b.HasOne("StudentManagement.Data.Department", "Department")
-                        .WithMany("Student_Subject")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Student_Subject_DepartmentId");
-
                     b.HasOne("StudentManagement.Data.Students", "Student")
                         .WithMany("Student_Subject")
                         .HasForeignKey("StudentId")
@@ -227,8 +215,6 @@ namespace StudentManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Student_Subject_SubjectId");
-
-                    b.Navigation("Department");
 
                     b.Navigation("Student");
 
@@ -264,8 +250,6 @@ namespace StudentManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("Student");
-
-                    b.Navigation("Student_Subject");
 
                     b.Navigation("Subjects");
                 });

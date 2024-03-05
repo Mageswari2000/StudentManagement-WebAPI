@@ -7,5 +7,8 @@ namespace StudentManagement.IDAL
         public string SaveStudents(StudentBO Detail);
 
         public ReturnStudentBO GetStudents();
+
+        public string DeleteStudents(int StudentId);
+
     }
 }
