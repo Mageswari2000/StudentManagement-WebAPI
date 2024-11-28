@@ -4,15 +4,13 @@
     {
         public int ID { get; set; }
         public string DepartmentName { get; set; }
-        public int Fees { get; set; }
-
         public ICollection<Students> Student { get; set; }
+        public ICollection<Subjects> Subjects { get; set; } 
+        public ICollection <Payment> Payment { get; set; }
+        public ICollection <SemesterResult> SemesterResult { get; set; }
+        public ICollection<ArrearExamResult> ArrearExamResult { get; set; }
+        public ICollection<ConsolidateStudentDetails> ConsolidateStudentDetails { get; set; }
 
-        public virtual Payment Payment { get; set; }
-
-        public ICollection<Subjects> Subjects { get; set; }
-
-        public ICollection<Student_Subject> Student_Subject { get; set; }
 
 
 

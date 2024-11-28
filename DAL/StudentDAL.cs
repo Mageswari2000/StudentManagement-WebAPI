@@ -30,13 +30,13 @@ namespace StudentManagement.DAL
                     obj = db.Students.FirstOrDefault(e => e.Id == Detail.Id);
                    
                 }
-                obj.Id = Detail.Id;
-                obj.Name = Detail.Name;
-                obj.Email = Detail.Email;
-                obj.Age = Detail.Age;
-                obj.DepartmentID = Detail.DepartmentID;
-                obj.Phone = Detail.Phone;
-                obj.DateOfBirth = DateTime.UtcNow;
+                //obj.Id = Detail.Id;
+                //obj.Name = Detail.Name;
+                //obj.Email = Detail.Email;
+                //obj.Age = Detail.Age;
+                //obj.DepartmentID = Detail.DepartmentID;
+                //obj.Phone = Detail.Phone;
+                //obj.DateOfBirth = Detail.DateOfBirth;
 
                 db.SaveChanges();
                 return "saved";
@@ -51,14 +51,25 @@ namespace StudentManagement.DAL
         {
             ReturnStudentBO obj= new ReturnStudentBO();
             var returndata = from student in db.Students
-                             join depart in db.Department
-                             on student.DepartmentID equals depart.ID 
-                             where depart.DepartmentName == "MECH" || depart.DepartmentName == "EEE"
                              select new GetStudentBO
                              {
-                                 Name = student.Name,
+                                 Id = student.Id,
+                                 RegNo = student.RegNo,
+                                 FirstName = student.FirstName,
+                                 LastName = student.LastName,
+                                 DateOfBirth = student.DateOfBirth,
+                                 Age = student.Age,
+                                 Gender = student.Gender,
                                  Email = student.Email,
-                                 DepartmentName = depart.DepartmentName,
+                                 Phone = student.Phone,
+                                 GuardianName = student.GuardianName,
+                                 GuardianPhone = student.GuardianPhone,
+                                 SchlPassedOutYear = student.SchlPassedOutYear,
+                                 CutOffIn12th = student.CutOffIn12th,
+                                 JoiningDate = student.JoiningDate,
+                                 Batch = student.Batch,
+                                 DepartmentID = student.DepartmentID,
+                                 DepartmentName = student.Department.DepartmentName,
 
                              };
 

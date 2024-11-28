@@ -1,6 +1,6 @@
 ﻿using StudentManagement.Data;
 using StudentManagement.IDAL;
-using StudentManagement.Migrations;
+//using StudentManagement.Migrations;
 using StudentManagement.Models;
 
 namespace StudentManagement.DAL
@@ -32,7 +32,7 @@ namespace StudentManagement.DAL
 
             obj.ID = Detail.ID;
             obj.DepartmentName = Detail.DepartmentName;
-            obj.Fees = Detail.Fees;
+            //obj.Fees = Detail.Fees;
             db.SaveChanges();
 
             return 200;
@@ -65,7 +65,7 @@ namespace StudentManagement.DAL
                               {
                                   ID = S.ID,
                                   DepartmentName=S.DepartmentName,
-                                  Fees = S.Fees,
+                                  //Fees = S.Fees,
                                  
 
                               }
