@@ -5,9 +5,9 @@ namespace StudentManagement.IDAL
     public interface IDepartmentDAL
     {
 
-        public int AddDepartment(DepartMentBO Detail);
-        public string DeleteDepartment(DepartMentBO Detail);
+        public int AddDepartment(DepartmentBO Detail);
+        public string DeleteDepartment(int DepartmentId);
 
-        public List<DepartMentBO> GetDepartment();
+        public List<DepartmentBO> GetDepartment();
     }
 }

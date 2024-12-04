@@ -17,7 +17,7 @@ namespace StudentManagement.Controllers
             this.obj = obj;
         }
 
-        [HttpPost("savehere")]
+        [HttpPost("saveStudent")]
         public ActionResult SaveStudents(StudentBO Detail)
         {
             try{
@@ -41,7 +41,7 @@ namespace StudentManagement.Controllers
 
 
 
-        [HttpGet("getStudent")]
+        [HttpGet("getStudents")]
         public ActionResult GetStudents()
         {
             try
@@ -64,12 +64,12 @@ namespace StudentManagement.Controllers
 
         }
 
-        [HttpDelete("deletehere")]
+        [HttpDelete("deleteStudent")]
         public ActionResult DeleteStudents(int StudentId)
         {
             try
             {
-                obj.DeleteStudents(StudentId);
+                obj.DeleteStudent(StudentId);
                 return Ok();
             }
             catch (Exception e)

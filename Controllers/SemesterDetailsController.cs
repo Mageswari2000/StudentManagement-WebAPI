@@ -1,35 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentManagement.IDAL;
 using StudentManagement.Models;
+using System.Runtime.CompilerServices;
 
 namespace StudentManagement.Controllers
 {
-
-    [Route("API/api/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class SemesterDetailsController : ControllerBase
     {
-        IDepartmentDAL obj;
-        public DepartmentController(IDepartmentDAL obj)
+        ISemesterDetailsDAL obj;
+        public SemesterDetailsController(ISemesterDetailsDAL obj)
         {
-            this.obj = obj;
+           this.obj=obj;
         }
 
-
-
-        [HttpPost("saveDepartment")]
-        public ActionResult AddDepartment(DepartmentBO Detail)
+        [HttpPost("saveSemesterDetails")] 
+        public ActionResult saveSemesterDetails(SemesterDetailsBO Details)
         {
             try
             {
-                obj.AddDepartment(Detail);
-                return Ok();
+                obj.SaveSemesterDetails(Details);
+                return Ok(200);
             }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("inner exception") && e.InnerException != null)
-                {
+            catch (Exception e) { 
+                if(e.InnerException!=null && e.Message.Contains("inner exception")){
                     return BadRequest(e.InnerException.Message);
                 }
                 else
@@ -37,48 +32,19 @@ namespace StudentManagement.Controllers
                     return BadRequest(e.Message);
                 }
             }
-
-
         }
 
-
-        [HttpDelete("deleteDepartment")]
-        public ActionResult DeleteDepartment(int DepartmentId)
+        [HttpGet("getSemesterDetails")]
+        public ActionResult GetSemesterDetails()
         {
             try
             {
-                obj.DeleteDepartment(DepartmentId);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("inner exception") && e.InnerException != null)
-                {
-                    return BadRequest(e.InnerException.Message);
-                }
-                else
-                {
-                    return BadRequest(e.Message);
-                }
-            }
-
-
-        }
-
-
-
-
-        [HttpGet("getDepartments")]
-        public ActionResult GetDepartment()
-        {
-            try
-            {
-                var data = obj.GetDepartment();
+                var data = obj.GetSemesterDetails();
                 return Ok(data);
             }
             catch (Exception e)
             {
-                if (e.Message.Contains("inner exception") && e.InnerException != null)
+                if (e.InnerException != null && e.Message.Contains("inner exception"))
                 {
                     return BadRequest(e.InnerException.Message);
                 }
@@ -87,9 +53,28 @@ namespace StudentManagement.Controllers
                     return BadRequest(e.Message);
                 }
             }
-
-
         }
 
+        [HttpDelete("DeleteSemester")]
+        public ActionResult DeleteSemester(int SemesterDetailId)
+        {
+            try
+            {
+                var data = obj.DeleteSemester(SemesterDetailId);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null && e.Message.Contains("inner exception"))
+                {
+                    return BadRequest(e.InnerException.Message);
+                }
+                else
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+        }
     }
+
 }

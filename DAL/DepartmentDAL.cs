@@ -13,7 +13,7 @@ namespace StudentManagement.DAL
             this.db = db;
         }
 
-        public int AddDepartment(DepartMentBO Detail)
+        public int AddDepartment(DepartmentBO Detail)
         {
             Department obj;
             if (Detail.ID == 0)
@@ -32,16 +32,15 @@ namespace StudentManagement.DAL
 
             obj.ID = Detail.ID;
             obj.DepartmentName = Detail.DepartmentName;
-            //obj.Fees = Detail.Fees;
             db.SaveChanges();
 
             return 200;
 
         }
 
-        public string DeleteDepartment(DepartMentBO Detail)
+        public string DeleteDepartment(int DepartmentId)
         {
-            var obj = db.Department.FirstOrDefault(e => e.ID == Detail.ID);
+            var obj = db.Department.FirstOrDefault(e => e.ID == DepartmentId);
 
             if (obj != null)
             {
@@ -57,17 +56,15 @@ namespace StudentManagement.DAL
         }
 
 
-        public List<DepartMentBO> GetDepartment()
+        public List<DepartmentBO> GetDepartment()
         {
             var resultdata = (from S in db.Department
                               where S.ID != 0
-                              select new DepartMentBO
+                              select new DepartmentBO
                               {
                                   ID = S.ID,
                                   DepartmentName=S.DepartmentName,
-                                  //Fees = S.Fees,
                                  
-
                               }
 
                            ).ToList();

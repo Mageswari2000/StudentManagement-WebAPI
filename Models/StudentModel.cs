@@ -20,7 +20,6 @@ namespace StudentManagement.Models
         public DateOnly JoiningDate { get; set; }
         public int Batch { get; set; }
         public int DepartmentID { get; set; }
-        public string DepartmentName { get; set; }
 
     }
 

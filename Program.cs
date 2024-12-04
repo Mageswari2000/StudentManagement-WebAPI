@@ -27,8 +27,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
 builder.Services.AddScoped<IStudentDAL, StudentDAL>();
 builder.Services.AddScoped<IDepartmentDAL, DepartmentDAL>();
+builder.Services.AddScoped<ISemesterDetailsDAL, SemesterDetailsDAL>();
+builder.Services.AddScoped<ISubjectDAL, SubjectDAL>();
+builder.Services.AddScoped<ISemesterResultDAL,SemesterResultDAL>();
 //builder.Services.AddScoped<IPaymentDAL, PaymentDAL>();
-//builder.Services.AddScoped<IStudent_SubjectDAL, Student_SubjectDAL>();
 
 var app = builder.Build();
 app.UseRouting();

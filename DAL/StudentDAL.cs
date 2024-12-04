@@ -5,7 +5,6 @@ using StudentManagement.Models;
 using System.Xml.Linq;
 
 namespace StudentManagement.DAL
-
 {
     public class StudentDAL : IStudentDAL
     {
@@ -14,7 +13,6 @@ namespace StudentManagement.DAL
         { 
             this.db = db;
         }
-
         public string SaveStudents(StudentBO Detail)
         {
             Students obj;
@@ -30,23 +28,29 @@ namespace StudentManagement.DAL
                     obj = db.Students.FirstOrDefault(e => e.Id == Detail.Id);
                    
                 }
-                //obj.Id = Detail.Id;
-                //obj.Name = Detail.Name;
-                //obj.Email = Detail.Email;
-                //obj.Age = Detail.Age;
-                //obj.DepartmentID = Detail.DepartmentID;
-                //obj.Phone = Detail.Phone;
-                //obj.DateOfBirth = Detail.DateOfBirth;
-
+                obj.Id = Detail.Id;
+                obj.RegNo = Detail.RegNo;
+                obj.FirstName = Detail.FirstName;
+                obj.LastName = Detail.LastName;
+                obj.DateOfBirth = Detail.DateOfBirth;
+                obj.Age = Detail.Age;
+                obj.Gender = Detail.Gender;
+                obj.Email = Detail.Email;
+                obj.Phone = Detail.Phone;
+                obj.GuardianName = Detail.GuardianName;
+                obj.GuardianPhone = Detail.GuardianPhone;
+                obj.SchlPassedOutYear = Detail.SchlPassedOutYear;
+                obj.CutOffIn12th = Detail.CutOffIn12th;
+                obj.JoiningDate = Detail.JoiningDate;
+                obj.Batch = Detail.Batch;
+                obj.DepartmentID = Detail.DepartmentID;
                 db.SaveChanges();
                 return "saved";
             }
             catch(Exception e) {
                 throw new Exception(e.InnerException.Message);
             }  
-
         }
-
        public ReturnStudentBO GetStudents()
         {
             ReturnStudentBO obj= new ReturnStudentBO();
@@ -77,9 +81,7 @@ namespace StudentManagement.DAL
             obj.Count = returndata.Count();
             return obj;
         }
-
-
-        public string DeleteStudents(int StudentId)
+        public string DeleteStudent(int StudentId)
         {
             var obj = db.Students.FirstOrDefault(e => e.Id == StudentId);
 
@@ -91,7 +93,7 @@ namespace StudentManagement.DAL
             }
             else
             {
-                return "Student doest not here";
+                throw new Exception("Student Does Not Here");
             }
 
         }

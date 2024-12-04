@@ -1,12 +1,12 @@
-﻿namespace StudentManagement.Models
+﻿using StudentManagement.Data;
+
+namespace StudentManagement.Models
 {
 
-    public class DepartMentBO
+    public class DepartmentBO
     {
         public int ID { get; set; }
-        public string DepartmentName { get; set; }
-        public int Fees { get; set; }
-
-
+        public string? DepartmentName { get; set; }
+     
     }
 }
