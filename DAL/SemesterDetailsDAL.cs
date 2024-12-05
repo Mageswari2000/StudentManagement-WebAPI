@@ -17,7 +17,7 @@ namespace StudentManagement.DAL
             if(Details.ID == 0)
             {
                 semesterDetailsobj=new SemesterDetails();
-                db.SemesterDetails.AddRange(semesterDetailsobj);
+                db.SemesterDetails.Add(semesterDetailsobj);
             }
             else
             {

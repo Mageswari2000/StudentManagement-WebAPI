@@ -56,7 +56,7 @@ namespace StudentManagement.DAL
             var Data = db.Subjects.FirstOrDefault(e => e.Id == SubjectId);
             if(Data!=null)
             {
-                db.RemoveRange(Data);
+                db.Subjects.Remove(Data);
                 db.SaveChanges();
                 return "Deleted";
             }

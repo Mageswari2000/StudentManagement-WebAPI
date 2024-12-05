@@ -30,6 +30,8 @@ builder.Services.AddScoped<IDepartmentDAL, DepartmentDAL>();
 builder.Services.AddScoped<ISemesterDetailsDAL, SemesterDetailsDAL>();
 builder.Services.AddScoped<ISubjectDAL, SubjectDAL>();
 builder.Services.AddScoped<ISemesterResultDAL,SemesterResultDAL>();
+builder.Services.AddScoped<IArrearExamResultDAL, ArrearExamResultDAL>();
+builder.Services.AddScoped<IConsolidateStudentDetailsDAL,ConsolidateStudentDetailsDAL>();
 //builder.Services.AddScoped<IPaymentDAL, PaymentDAL>();
 
 var app = builder.Build();

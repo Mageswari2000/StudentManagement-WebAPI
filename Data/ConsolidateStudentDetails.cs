@@ -18,14 +18,4 @@
         public  virtual Department Department { get; set; }
 
     }
-
-    public class MarkDetails
-    {
-        public int SemId { get; set; }
-        public int SubjectId { get; set; }
-        public int StudentSubScore { get; set; }
-        public int? TotalScore { get; set; }
-        public string Status { get; set; }
-        public DateOnly MonthandYearOfExam { get; set; }
-    }
 }

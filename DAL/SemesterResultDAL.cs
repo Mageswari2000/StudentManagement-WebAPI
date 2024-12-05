@@ -40,9 +40,18 @@ namespace StudentManagement.DAL
             var list = from semR in db.SemesterResult
                        select new SemesterResultBO
                        {
-                           Id = semR.Id,
-                           
-                       };
+                        Id = semR.Id,
+                        SemId = semR.SemId,
+                        DepartmentId = semR.DepartmentId,
+                        StudentId = semR.StudentId,
+                        SubjectId = semR.SubjectId,
+                        StudentSubScore = semR.StudentSubScore,
+                        TotalScore = semR.TotalScore,
+                        MonthandYearOfExam = semR.MonthandYearOfExam,
+                        Status = semR.Status,
+                        Grade = semR.Grade
+
+        };
             obj.SEMResultList = list.ToList();
             obj.count = list.Count();
             return obj;
@@ -54,7 +63,7 @@ namespace StudentManagement.DAL
             var Data = db.SemesterResult.FirstOrDefault(e => e.Id == SemesterResultId);
             if (Data != null)
             {
-                db.RemoveRange(Data);
+                db.SemesterResult.Remove(Data);
                 db.SaveChanges();
                 return "Deleted";
             }
