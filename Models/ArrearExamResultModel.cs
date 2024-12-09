@@ -14,6 +14,7 @@ namespace StudentManagement.Models
         public string Status { get; set; }
         public string Grade { get; set; }
         public DateOnly ArrearExamMonthYear { get; set; }
+        public int semesterResultId { get; set; }
     }
     public class GetArrearExamResultList
     {

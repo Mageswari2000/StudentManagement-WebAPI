@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagement.Data;
+﻿using StudentManagement.Data;
 using StudentManagement.IDAL;
 using StudentManagement.Models;
 using System.Xml.Linq;

@@ -33,6 +33,8 @@ namespace StudentManagement.DAL
             ARRresultobj.ArrearExamMonthYear = Detail.ArrearExamMonthYear;
             ARRresultobj.Status = Detail.Status;
             ARRresultobj.Grade = Detail.Grade;
+            ARRresultobj.semesterResultId = Detail.semesterResultId;
+
             db.SaveChanges();
         }
 

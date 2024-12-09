@@ -11,7 +11,6 @@
         public int? TotalScore { get; set; }
         public string Status { get; set; }
         public string Grade { get; set; }
-
         public int semesterResultId { get; set; }
         public DateOnly ArrearExamMonthYear { get; set; }
         public virtual Students Students { get; set; }

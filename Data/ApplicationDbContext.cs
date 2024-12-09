@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-//using StudentManagement.Migrations;
-using StudentManagement.Models;
 
 namespace StudentManagement.Data
 {
@@ -98,6 +96,12 @@ namespace StudentManagement.Data
                .HasForeignKey(d => d.SubjectId)
                .OnDelete(DeleteBehavior.Cascade)
                .HasConstraintName("FK_ArrearExamResult_SubjectId");
+
+               entity.HasOne(d => d.SemesterResult)
+              .WithMany(e => e.ArrearExamResult)
+              .HasForeignKey(d => d.semesterResultId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("FK_ArrearExamResult_semesterResultId");
             });
             modelBuilder.Entity<Payment>(entity =>
             {
