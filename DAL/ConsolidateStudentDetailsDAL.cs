@@ -48,31 +48,32 @@ namespace StudentManagement.DAL
                        {
                            Id = con.Id,
                            StudentId = con.StudentId,
+                           StudentRegNo = con.StudentRegNo,
                            StudentName = con.StudentName,
                            DepartmentId = con.DepartmentId,
-                           NoOfArrearCleared = con.NoOfArrearCleared,
+                           DepartmentName=con.Department.DepartmentName,
                            NoOfArrearPending = con.NoOfArrearPending,
+                           NoOfArrearCleared = con.NoOfArrearCleared,
                            TotalPapper = con.TotalPapper,
-                           StudentRegNo = con.StudentRegNo,
                            PassedOutYear = con.PassedOutYear,
                            CGPA = con.CGPA,
                            Percentage = con.Percentage,
                            classification = con.classification,
-                       /*    MarkDetails = (from semresult in db.SemesterResult
-                                          join arrresult in db.ArrearExamResult 
-                                          on semresult.Id equals arrresult.semesterResultId
-                                          where semresult.StudentId== con.StudentId
+                           MarkDetails = (from semresult in db.SemesterResult
+                                          where semresult.StudentId == con.StudentId
                                           select new MarkDetailsBO
                                           {
                                               SemId = semresult.SemId,
                                               SubjectId = semresult.SubjectId,
-                                              StudentSubScore = 
-                                              TotalScore = 
-                                              Status = 
-                                              MonthandYearOfExam = semresult.MonthandYearOfExam,
-
-                                         }
-                           ).ToList()*/
+                                              SubjectName=semresult.Subjects.SubjectName,
+                                              SubjectCode=semresult.Subjects.SubjectCode,
+                                              StudentSubScore = (semresult.Status == "Fail") ? semresult.ArrearExamResult.Where(r => r.semesterResultId == semresult.Id).OrderByDescending(s => s.Id).Select(s => s.StudentScore).FirstOrDefault() : semresult.StudentSubScore,
+                                              TotalScore = semresult.TotalScore,
+                                              Status = (semresult.Status == "Fail") ? semresult.ArrearExamResult.Where(r => r.semesterResultId == semresult.Id).OrderByDescending(s => s.Id).Select(s => s.Status).FirstOrDefault() : semresult.Status,
+                                              Grade = (semresult.Status == "Fail") ? semresult.ArrearExamResult.Where(r => r.semesterResultId == semresult.Id).OrderByDescending(s => s.Id).Select(s => s.Grade).FirstOrDefault() : semresult.Grade,
+                                              MonthandYearOfExam = (semresult.Status == "Fail") ? semresult.ArrearExamResult.Where(r => r.semesterResultId == semresult.Id).OrderByDescending(s => s.Id).Select(s => s.ArrearExamMonthYear).FirstOrDefault() : semresult.MonthandYearOfExam,
+                                          }
+                               ).ToList()
                        };
             obj.List = list.ToList();
             obj.count = list.Count();
