@@ -21,6 +21,7 @@ namespace StudentManagement.Data
         public DateOnly JoiningDate { get; set; }
         public Int32 Batch { get; set; }
         public int DepartmentID { get; set; }
+        public string DepartmentName {  get; set; }
         public virtual Department Department { get; set; }
         public ICollection<Payment> payment { get; set; }
         public ICollection <SemesterResult> SemesterResult { get; set; }

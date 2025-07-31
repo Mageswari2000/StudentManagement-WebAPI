@@ -8,6 +8,9 @@
         public int SemId { get; set; }
         public int paidAmount { get; set; }
         public int? BalanceDue { get; set; }
+        public int? TotalFees { get; set; }
+        public Boolean IsSemesterExamType { get; set; }
+        public Boolean IsCashPaymentType { get; set; }
         public string PaymentStatus { get; set; }
         public string TransactionStatus { get; set; }
         public DateOnly paymentMonthandYear { get; set; }

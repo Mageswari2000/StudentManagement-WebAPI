@@ -24,7 +24,7 @@ namespace StudentManagement.DAL
               semesterDetailsobj=  db.SemesterDetails.FirstOrDefault (e=>e.ID==Details.ID);
             }
             semesterDetailsobj.ID = Details.ID;
-            semesterDetailsobj.SemType = Details.SemType;
+            //semesterDetailsobj.SemType = Details.SemType;
             semesterDetailsobj.TotalSemFees = Details.TotalSemFees;
             db.SaveChanges();
           
@@ -50,7 +50,7 @@ namespace StudentManagement.DAL
                        select new SemesterDetailsBO
                        {
                            ID = sem.ID,
-                           SemType = sem.SemType,
+                           //SemType = sem.SemType,
                            TotalSemFees = sem.TotalSemFees,
                        };
            obj.SemList = list.ToList();

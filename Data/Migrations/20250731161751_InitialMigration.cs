@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StudentManagement.Migrations
+namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrationStdManagement : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,8 +31,9 @@ namespace StudentManagement.Migrations
                 {
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SemType = table.Column<string>(type: "text", nullable: false),
-                    TotalSemFees = table.Column<int>(type: "integer", nullable: false)
+                    SemType = table.Column<int>(type: "integer", nullable: false),
+                    TotalSemFees = table.Column<int>(type: "integer", nullable: false),
+                    MonthandYearOfSemExam = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +60,8 @@ namespace StudentManagement.Migrations
                     CutOffIn12th = table.Column<decimal>(type: "numeric", nullable: false),
                     JoiningDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Batch = table.Column<int>(type: "integer", nullable: false),
-                    DepartmentID = table.Column<int>(type: "integer", nullable: false)
+                    DepartmentID = table.Column<int>(type: "integer", nullable: false),
+                    DepartmentName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,6 +148,9 @@ namespace StudentManagement.Migrations
                     SemId = table.Column<int>(type: "integer", nullable: false),
                     paidAmount = table.Column<int>(type: "integer", nullable: false),
                     BalanceDue = table.Column<int>(type: "integer", nullable: true),
+                    TotalFees = table.Column<int>(type: "integer", nullable: true),
+                    IsSemesterExamType = table.Column<bool>(type: "boolean", nullable: false),
+                    IsCashPaymentType = table.Column<bool>(type: "boolean", nullable: false),
                     PaymentStatus = table.Column<string>(type: "text", nullable: false),
                     TransactionStatus = table.Column<string>(type: "text", nullable: false),
                     paymentMonthandYear = table.Column<DateOnly>(type: "date", nullable: false),
@@ -170,51 +175,6 @@ namespace StudentManagement.Migrations
                         name: "FK_Payment_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArrearExamResult",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SemId = table.Column<int>(type: "integer", nullable: false),
-                    DepartmentId = table.Column<int>(type: "integer", nullable: false),
-                    StudentId = table.Column<int>(type: "integer", nullable: false),
-                    SubjectId = table.Column<int>(type: "integer", nullable: false),
-                    StudentScore = table.Column<int>(type: "integer", nullable: false),
-                    TotalScore = table.Column<int>(type: "integer", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    Grade = table.Column<string>(type: "text", nullable: false),
-                    ArrearExamMonthYear = table.Column<DateOnly>(type: "date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArrearExamResult", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArrearExamResult_DepartmentID",
-                        column: x => x.DepartmentId,
-                        principalTable: "Department",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArrearExamResult_SemId",
-                        column: x => x.SemId,
-                        principalTable: "SemesterDetails",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArrearExamResult_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArrearExamResult_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -264,10 +224,66 @@ namespace StudentManagement.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ArrearExamResult",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SemId = table.Column<int>(type: "integer", nullable: false),
+                    DepartmentId = table.Column<int>(type: "integer", nullable: false),
+                    StudentId = table.Column<int>(type: "integer", nullable: false),
+                    SubjectId = table.Column<int>(type: "integer", nullable: false),
+                    StudentScore = table.Column<int>(type: "integer", nullable: false),
+                    TotalScore = table.Column<int>(type: "integer", nullable: true),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    Grade = table.Column<string>(type: "text", nullable: false),
+                    semesterResultId = table.Column<int>(type: "integer", nullable: false),
+                    ArrearExamMonthYear = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArrearExamResult", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArrearExamResult_DepartmentID",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArrearExamResult_SemId",
+                        column: x => x.SemId,
+                        principalTable: "SemesterDetails",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArrearExamResult_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArrearExamResult_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArrearExamResult_semesterResultId",
+                        column: x => x.semesterResultId,
+                        principalTable: "SemesterResult",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ArrearExamResult_DepartmentId",
                 table: "ArrearExamResult",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArrearExamResult_semesterResultId",
+                table: "ArrearExamResult",
+                column: "semesterResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArrearExamResult_SemId",

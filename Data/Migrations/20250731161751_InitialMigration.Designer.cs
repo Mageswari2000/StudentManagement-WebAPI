@@ -9,18 +9,18 @@ using StudentManagement.Data;
 
 #nullable disable
 
-namespace StudentManagement.Migrations
+namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241128072251_InitialMigrationStdManagement")]
-    partial class InitialMigrationStdManagement
+    [Migration("20250731161751_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -62,6 +62,9 @@ namespace StudentManagement.Migrations
                     b.Property<int?>("TotalScore")
                         .HasColumnType("integer");
 
+                    b.Property<int>("semesterResultId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -71,6 +74,8 @@ namespace StudentManagement.Migrations
                     b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectId");
+
+                    b.HasIndex("semesterResultId");
 
                     b.ToTable("ArrearExamResult");
                 });
@@ -159,6 +164,12 @@ namespace StudentManagement.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsCashPaymentType")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSemesterExamType")
+                        .HasColumnType("boolean");
+
                     b.Property<DateOnly?>("LastDueDate")
                         .HasColumnType("date");
 
@@ -170,6 +181,9 @@ namespace StudentManagement.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TotalFees")
                         .HasColumnType("integer");
 
                     b.Property<string>("TransactionStatus")
@@ -201,9 +215,11 @@ namespace StudentManagement.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("SemType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateOnly>("MonthandYearOfSemExam")
+                        .HasColumnType("date");
+
+                    b.Property<int>("SemType")
+                        .HasColumnType("integer");
 
                     b.Property<int>("TotalSemFees")
                         .HasColumnType("integer");
@@ -286,6 +302,10 @@ namespace StudentManagement.Migrations
 
                     b.Property<int>("DepartmentID")
                         .HasColumnType("integer");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -392,9 +412,17 @@ namespace StudentManagement.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_ArrearExamResult_SubjectId");
 
+                    b.HasOne("StudentManagement.Data.SemesterResult", "SemesterResult")
+                        .WithMany("ArrearExamResult")
+                        .HasForeignKey("semesterResultId")
+                        .IsRequired()
+                        .HasConstraintName("FK_ArrearExamResult_semesterResultId");
+
                     b.Navigation("Department");
 
                     b.Navigation("SemesterDetails");
+
+                    b.Navigation("SemesterResult");
 
                     b.Navigation("Students");
 
@@ -548,6 +576,11 @@ namespace StudentManagement.Migrations
                     b.Navigation("SemesterResult");
 
                     b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("StudentManagement.Data.SemesterResult", b =>
+                {
+                    b.Navigation("ArrearExamResult");
                 });
 
             modelBuilder.Entity("StudentManagement.Data.Students", b =>
