@@ -8,6 +8,7 @@ namespace StudentManagement.Data
         public int Id { get; set; }
         public Int32 RegNo { get; set; }
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public int Age { get; set; }
@@ -16,20 +17,22 @@ namespace StudentManagement.Data
         public string Phone { get; set; }
         public string GuardianName { get; set; }
         public string GuardianPhone { get; set; }
+        public string Address { get; set; }
         public DateOnly SchlPassedOutYear { get; set; }
         public decimal CutOffIn12th { get; set; }
         public DateOnly JoiningDate { get; set; }
         public Int32 Batch { get; set; }
         public int DepartmentID { get; set; }
-        public string DepartmentName {  get; set; }
+        public string AdmissionStatus { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
+
         public virtual Department Department { get; set; }
-        public ICollection<Payment> payment { get; set; }
-        public ICollection <SemesterResult> SemesterResult { get; set; }
+        public ICollection<Payment> Payment { get; set; }
+        public ICollection<SemesterResult> SemesterResult { get; set; }
         public ICollection<ArrearExamResult> ArrearExamResult { get; set; }
         public virtual ConsolidateStudentDetails ConsolidateStudentDetails { get; set; }
-
-
-
 
     }
 }

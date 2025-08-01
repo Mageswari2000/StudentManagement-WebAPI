@@ -53,21 +53,21 @@ namespace StudentManagement.Data
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_SemesterResult_DepartmentID");
 
-                entity.HasOne(d => d.semesterDetails)
+                entity.HasOne(d => d.SemesterDetails)
                 .WithMany(e => e.SemesterResult)
                 .HasForeignKey(d => d.SemId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_SemesterResult_SemId");
 
-                entity.HasOne(d => d.students)
+                entity.HasOne(d => d.Students)
                .WithMany(e => e.SemesterResult)
                .HasForeignKey(d => d.StudentId)
                .OnDelete(DeleteBehavior.Cascade)
                .HasConstraintName("FK_SemesterResult_StudentId");
 
                 entity.HasOne(d => d.Subjects)
-               .WithOne(e => e.SemesterResult)
-               .HasForeignKey<SemesterResult>(d => d.SubjectId)
+               .WithMany(e => e.SemesterResults)
+               .HasForeignKey(d => d.SubjectId)
                .OnDelete(DeleteBehavior.Cascade)
                .HasConstraintName("FK_SemesterResult_SubjectId");
             });
@@ -99,7 +99,7 @@ namespace StudentManagement.Data
 
                entity.HasOne(d => d.SemesterResult)
               .WithMany(e => e.ArrearExamResult)
-              .HasForeignKey(d => d.semesterResultId)
+              .HasForeignKey(d => d.SemesterResultId)
               .OnDelete(DeleteBehavior.ClientSetNull)
               .HasConstraintName("FK_ArrearExamResult_semesterResultId");
             });
@@ -118,7 +118,7 @@ namespace StudentManagement.Data
                 .HasConstraintName("FK_Payment_SemId");
 
                 entity.HasOne(d => d.Students)
-               .WithMany(e => e.payment)
+               .WithMany(e => e.Payment)
                .HasForeignKey(d => d.StudentId)
                .OnDelete(DeleteBehavior.Cascade)
                .HasConstraintName("FK_Payment_StudentId");

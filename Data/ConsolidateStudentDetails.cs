@@ -2,20 +2,25 @@
 {
     public class ConsolidateStudentDetails
     {
+       
         public int Id { get; set; }
         public int DepartmentId { get; set; }
         public int StudentId { get; set; }
-        public int StudentRegNo { get; set; }
-        public string StudentName { get; set; }
         public int? NoOfArrearPending { get; set; }
         public int? NoOfArrearCleared { get; set; }
-        public int? TotalPapper { get; set; }
+        public int? TotalPapers { get; set; }
         public DateOnly? PassedOutYear { get; set; }
-        public int? Percentage { get; set; }
-        public int? CGPA { get; set; }
-        public string  classification { get; set; }
-        public virtual Students Students { get; set; }
-        public  virtual Department Department { get; set; }
+        public double? Percentage { get; set; }
+        public double? CGPA { get; set; }
+        public string Classification { get; set; }
+        public bool? HasClearedAllPapers { get; set; }
+        public string Remarks { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
 
-    }
+        public virtual Students Students { get; set; }
+        public virtual Department Department { get; set; }
+    
+
+}
 }

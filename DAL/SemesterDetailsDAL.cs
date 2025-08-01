@@ -25,7 +25,7 @@ namespace StudentManagement.DAL
             }
             semesterDetailsobj.ID = Details.ID;
             //semesterDetailsobj.SemType = Details.SemType;
-            semesterDetailsobj.TotalSemFees = Details.TotalSemFees;
+            //semesterDetailsobj.TotalSemFees = Details.TotalSemFees;
             db.SaveChanges();
           
         }
@@ -51,7 +51,7 @@ namespace StudentManagement.DAL
                        {
                            ID = sem.ID,
                            //SemType = sem.SemType,
-                           TotalSemFees = sem.TotalSemFees,
+                           //TotalSemFees = sem.TotalSemFees,
                        };
            obj.SemList = list.ToList();
            obj.count = list.Count();

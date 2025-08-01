@@ -29,7 +29,7 @@ namespace StudentManagement.DAL
             semesterresultobj.StudentSubScore=Detail.StudentSubScore;
             semesterresultobj.TotalScore=Detail.TotalScore;
             semesterresultobj.MonthandYearOfExam=Detail.MonthandYearOfExam;
-            semesterresultobj.Status=Detail.Status;
+            //semesterresultobj.Status=Detail.Status;
             semesterresultobj.Grade=Detail.Grade;
             db.SaveChanges();
         }
@@ -48,7 +48,7 @@ namespace StudentManagement.DAL
                         StudentSubScore = semR.StudentSubScore,
                         TotalScore = semR.TotalScore,
                         MonthandYearOfExam = semR.MonthandYearOfExam,
-                        Status = semR.Status,
+                        //Status = semR.Status,
                         Grade = semR.Grade
 
         };

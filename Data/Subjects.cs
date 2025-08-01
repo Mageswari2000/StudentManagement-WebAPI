@@ -9,8 +9,8 @@
         public virtual Department Department { get; set; }
         public int SemesterId { get; set; }
         public virtual SemesterDetails Semester { get; set; }
-        public virtual SemesterResult SemesterResult { get; set; }
-        public ICollection <ArrearExamResult> ArrearExamResult { get; set; }
+        public ICollection<SemesterResult> SemesterResults { get; set; }
+        public ICollection<ArrearExamResult> ArrearExamResult { get; set; }
 
 
 
